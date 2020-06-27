@@ -3,6 +3,9 @@ const app = express();
 // .env keys
 require('dotenv').config();
 
+//importing mongoose DB
+require('./Mongoose/initMongoose');
+
 // express middleware
 app.use(express.json());
 
