@@ -6,11 +6,7 @@ const allpostsRoute = require('../controllers/allpostsRoute');
 const deleteRoute = require('../controllers/deleteRoute');
 const isvalidtoken = require('../controllers/validToken');
 const requireLogin = require('../authentication/requireLogin');
-
-// TEST HOME ROUTE
-router.get('/', async (req, res) => {
-  res.json('Hellow from router route 🙏');
-});
+const User = require('../models/userModel');
 
 // REGISTER ROUTE
 router.post('/register', registerRoute.register);
@@ -26,5 +22,14 @@ router.delete('/delete', requireLogin, deleteRoute.delete);
 
 //CHECK IF TOKEN IS VALID
 router.post('/token', isvalidtoken.validtoken);
+
+// FIND LOGGED IN USER
+router.get('/', requireLogin, async (req, res) => {
+  const user = await User.findById(req.user);
+  res.json({
+    id: user._id,
+    displayName: user.displayName,
+  });
+});
 
 module.exports = router;

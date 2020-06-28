@@ -1,13 +1,14 @@
 const express = require('express');
-const app = express();
+const cors = require('cors');
 // .env keys
 require('dotenv').config();
 
 //importing mongoose DB
 require('./db/initMongoose');
-
+const app = express();
 // express middleware
 app.use(express.json());
+app.use(cors());
 
 //test app route
 app.get('/', (req, res) => {
