@@ -1,18 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const controllerRoutes = require('../controllers/routes');
-const User = require('../models/userModel');
+const loginRoute = require('../controllers/loginRoute');
+const registerRoute = require('../controllers/registerRoute');
+const allpostsRoute = require('../controllers/allpostsRoute');
+const requireLogin = require('../authentication/requireLogin');
 
 // TEST HOME ROUTE
-router.get('/', controllerRoutes.home);
+router.get('/', requireLogin, async (req, res) => {
+  res.json('Hellow from router route 🙏');
+});
 
 // REGISTER ROUTE
-router.post('/register', controllerRoutes.register);
+router.post('/register', registerRoute.register);
 
 //LOGIN ROUTE
-router.post('/login', controllerRoutes.login);
+router.post('/login', loginRoute.login);
 
 //DB POSTS
-router.get('/dbposts', controllerRoutes.dbposts);
+router.get('/dbposts', allpostsRoute.dbposts);
 
 module.exports = router;

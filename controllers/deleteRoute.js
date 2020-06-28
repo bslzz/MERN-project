@@ -1,0 +1,2 @@
+//DELETE POSTS
+module.exports = {};
