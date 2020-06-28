@@ -34,7 +34,6 @@ module.exports = {
         token,
         user: {
           id: savedUser._id,
-          email: savedUser.email,
           displayName: savedUser.displayName,
         },
       });
