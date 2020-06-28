@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+.mainheader {
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem;
+  align-items: center;
+  background: rgb(0, 255, 234);
+}
+
+.auth-buttons button {
+  margin: 0 1rem;
+  padding: 5px 10px;
+  cursor: pointer;
+  background: #03a9f4;
+  color: #f3f3f3;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  outline: none;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
+}
+
+.auth-buttons button:hover {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.9),
+    -5px -5px 5px rgba(255, 255, 255, 0.1);
+}
