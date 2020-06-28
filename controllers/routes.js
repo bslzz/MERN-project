@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 // importing user model from UserShema
 const User = require('../models/userModel');
@@ -62,11 +63,34 @@ module.exports = {
       if (!email.match(mailformat))
         return res.status(422).json({ msg: 'Email not valid' });
 
-      //finding if the user is stored in the DB
+      // finding if the user is stored in the DB
 
-      const existingUser = await User.findOne({ email: email });
-      if (!existingUser)
+      const savedUser = await User.findOne({ email });
+      if (!savedUser)
         return res.status(422).json({ msg: 'User does not exist' });
-    } catch (error) {}
+
+      const matchPassword = await bcrypt.compare(password, savedUser.password);
+      if (!matchPassword)
+        return res.status(401).json({ msg: 'Invalid email/password' });
+      const token = await jwt.sign(
+        { id: savedUser._id },
+        process.env.SECRET_KEY
+      );
+
+      res.json({
+        token,
+        user: {
+          id: savedUser._id,
+          email: savedUser.email,
+          displayName: savedUser.displayName,
+        },
+      });
+    } catch (error) {
+      res.status(422).json(error.message);
+    }
+  },
+
+  dbposts: async (req, res) => {
+    User.find().then((data) => res.json(data));
   },
 };
