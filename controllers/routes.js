@@ -90,7 +90,10 @@ module.exports = {
     }
   },
 
+  // ALL POSTS FROM MONGOOSE DB
   dbposts: async (req, res) => {
-    User.find().then((data) => res.json(data));
+    User.find()
+      .then((data) => res.json(data))
+      .catch((error) => console.log(`Error fetching posts from DB: ${error}`));
   },
 };
