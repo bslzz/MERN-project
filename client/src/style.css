@@ -23,10 +23,23 @@
   border-radius: 5px;
   font-size: 1.2rem;
   outline: none;
+  border: none;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
 }
 
 .auth-buttons button:hover {
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.9),
     -5px -5px 5px rgba(255, 255, 255, 0.1);
+}
+
+.error-notice button {
+  border: none;
+  background: none;
+  margin-left: 10px;
+  color: red;
+  font-size: 1.2rem;
+}
+.error-notice button:active {
+  border: none;
+  outline: none;
 }
