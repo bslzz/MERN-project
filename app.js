@@ -17,6 +17,7 @@ app.get('/', (req, res) => {
 
 // router routes
 app.use('/users', require('./routes/authRoutes'));
+app.use('/users', require('./routes/todoRoutes'));
 
 // PORT setup
 const PORT = process.env.PORT || 5000;
