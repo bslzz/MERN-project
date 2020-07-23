@@ -44,12 +44,40 @@ router.delete('/todos/:id', requireLogin, async (req, res) => {
       _id: req.params.id,
     });
     if (!todos) {
-      return res.status(404).json({ msg: 'No todos found' });
+      return res.status(404).json({ msg: 'No todos with this ID found' });
     }
     const deletedTodos = await Todo.findByIdAndDelete(req.params.id);
     res.json(deletedTodos);
   } catch (error) {
-    res.status(422).json(error.message);
+    res.status(422).json(`Invalid ID: ${error.message}`);
+  }
+});
+
+//EDIT TODOS
+
+router.put('/todos/:id', requireLogin, async (req, res) => {
+  try {
+    const { title } = req.body;
+    const edittodos = {};
+    if (title) edittodos.title = title;
+
+    const findtodos = await Todo.findOne({
+      userId: req.user,
+      _id: req.params.id,
+    });
+    if (!findtodos) {
+      return res.status(404).json({ msg: 'No todos with this ID found' });
+    }
+    const editedtodo = await Todo.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: edittodos,
+      },
+      { new: true }
+    );
+    res.json(editedtodo);
+  } catch (error) {
+    res.status(422).json(`Invalid ID: ${error.message}`);
   }
 });
 
